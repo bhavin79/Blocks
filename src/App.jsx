@@ -58,11 +58,18 @@ const App = () => {
       setCurrentLine(null);
       setLines([]);
       setAnswerString("");
-      setPlayAni(false);
     }
+    setPlayAni(false);
   }, [drawToggle, autoDraw]);
 
-  const handleAutoDrawToggle = () => setAutoDraw(!autoDraw);
+  const handleAutoDrawToggle = () => {
+    if (!autoDraw) {
+      setDotPositions({});
+      setCurrentLine(null);
+      setLines([]);
+    }
+    setAutoDraw(!autoDraw);
+  };
 
   const handleMouseDown = (e, startDot) => {
     if (!drawToggle || autoDraw) return;
@@ -141,6 +148,12 @@ const App = () => {
     if (idx == 1) {
       setCount2(count2 + 1);
     }
+    setIsDrawing(false);
+    setDotPositions({});
+    setCurrentLine(null);
+    setLines([]);
+    setAnswerString("");
+    setPlayAni(false);
   };
   const getHeight = (idx) => {
     let dafaultHieght = 55;
