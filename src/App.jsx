@@ -44,7 +44,7 @@ const App = () => {
     setPlayAni(!playAni);
   };
   useEffect(() => {
-    if (drawToggle && autoDraw) {
+    if (drawToggle && autoDraw && !playAni) {
       const newPositions = Object.entries(dotRefs).reduce((acc, [key, ref]) => {
         const rect = ref.current?.getBoundingClientRect();
         acc[key] = rect
@@ -72,8 +72,7 @@ const App = () => {
   };
 
   const handleMouseDown = (e, startDot) => {
-    if (!drawToggle || autoDraw) return;
-
+    if (!drawToggle || autoDraw || playAni) return;
     const rect = dotRefs[startDot]?.current.getBoundingClientRect();
     if (rect) {
       setIsDrawing(true);
@@ -97,7 +96,7 @@ const App = () => {
     }));
   };
   const handleMouseUp = (e) => {
-    if (!isDrawing || !currentLine) return;
+    if (!isDrawing || !currentLine || playAni) return;
 
     const { startDot } = currentLine;
     const targetDot =
